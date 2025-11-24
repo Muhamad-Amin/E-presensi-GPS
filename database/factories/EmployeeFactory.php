@@ -45,7 +45,7 @@ class EmployeeFactory extends Factory
             'no_telp' => '08' . $faker->numerify('##########'), 
 
             // Password default: 'password'
-            'password' => Hash::make('password'), 
+            'password' => 'password', 
             
             'remember_token' => Str::random(10),
         ];

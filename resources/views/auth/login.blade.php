@@ -15,18 +15,26 @@
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('assets/img/icon/192x192.png') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     <link rel="manifest" href="{{ asset('__manifest.json') }}">
+
+    <style>
+        .toggle-password {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 24px;
+            color: #A1A1A2; /* Sesuaikan warna dengan template */
+            cursor: pointer;
+            z-index: 10;
+        }
+    </style>
 </head>
 
 <body class="bg-white">
 
-    <!-- loader -->
     <div id="loader">
         <div class="spinner-border text-primary" role="status"></div>
     </div>
-    <!-- * loader -->
-
-
-    <!-- App Capsule -->
     <div id="appCapsule" class="pt-0">
 
         <div class="login-form mt-1">
@@ -38,10 +46,32 @@
                 <h4>Silahkan Login</h4>
             </div>
             <div class="section mt-1 mb-5">
-                <form action="app-pages.html">
+                
+                @php
+                    $messagewarning = Session::get('warning');
+                @endphp
+                
+                @if (Session::get('warning'))
+                <div class="alert alert-outline-danger mb-1">
+                    {{ $messagewarning }}
+                </div>
+                @endif
+                
+                @if ($errors->any())
+                <div class="alert alert-outline-danger mb-1">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+                @endif
+                <form action="{{ route('process-login') }}" method="POST">
+                    @csrf 
+                    
                     <div class="form-group boxed">
                         <div class="input-wrapper">
-                            <input type="email" class="form-control" id="email1" placeholder="Email address">
+                            <input type="text" name="nik" class="form-control" id="nik" placeholder="NIK" autocomplete="off">
                             <i class="clear-input">
                                 <ion-icon name="close-circle"></ion-icon>
                             </i>
@@ -50,9 +80,10 @@
 
                     <div class="form-group boxed">
                         <div class="input-wrapper">
-                            <input type="password" class="form-control" id="password1" placeholder="Password">
-                            <i class="clear-input">
-                                <ion-icon name="close-circle"></ion-icon>
+                            <input type="password" name="password" class="form-control" id="password" placeholder="Password">
+                            
+                            <i class="toggle-password" id="show_password">
+                                <ion-icon name="eye-off-outline"></ion-icon>
                             </i>
                         </div>
                     </div>
@@ -69,27 +100,39 @@
             </div>
         </div>
 
-
     </div>
-    <!-- * App Capsule -->
-
-
-
-    <!-- ///////////// Js Files ////////////////////  -->
-    <!-- Jquery -->
     <script src="{{ asset('assets/js/lib/jquery-3.4.1.min.js') }}"></script>
-    <!-- Bootstrap-->
     <script src="{{ asset('assets/js/lib/popper.min.js') }}"></script>
     <script src="{{ asset('assets/js/lib/bootstrap.min.js') }}"></script>
-    <!-- Ionicons -->
     <script type="module" src="https://unpkg.com/ionicons@5.0.0/dist/ionicons/ionicons.js"></script>
-    <!-- Owl Carousel -->
     <script src="{{ asset('assets/js/plugins/owl-carousel/owl.carousel.min.js') }}"></script>
-    <!-- jQuery Circle Progress -->
     <script src="{{ asset('assets/js/plugins/jquery-circle-progress/circle-progress.min.js') }}"></script>
-    <!-- Base Js File -->
     <script src="{{ asset('assets/js/base.js') }}"></script>
 
+    <script>
+        $(document).ready(function() {
+            // Script Toggle Password
+            $("#show_password").click(function() {
+                var passwordInput = $("#password");
+                var icon = $(this).find("ion-icon");
+
+                if (passwordInput.attr("type") === "password") {
+                    passwordInput.attr("type", "text");
+                    icon.attr("name", "eye-outline");
+                } else {
+                    passwordInput.attr("type", "password");
+                    icon.attr("name", "eye-off-outline");
+                }
+            });
+
+            // Script Tambahan: Menghilangkan notifikasi otomatis setelah 3 detik (Opsional)
+            window.setTimeout(function() {
+                $(".alert").fadeTo(500, 0).slideUp(500, function(){
+                    $(this).remove(); 
+                });
+            }, 3000);
+        });
+    </script>
 
 </body>
 
