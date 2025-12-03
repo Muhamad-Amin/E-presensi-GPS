@@ -4,13 +4,13 @@
 <head>
     <x-layouts.meta-tag></x-layouts.meta-tag>
     <title>E-Presensi Geolocation | Dashboard</title>
-    <x-layouts.style/>
+    <x-layouts.style />
 </head>
 
 <body style="background-color:#e9ecef;">
 
     <!-- loader -->
-    <x-layouts.loader/>
+    <x-layouts.loader />
     <!-- * loader -->
 
 
@@ -18,17 +18,16 @@
     <!-- App Capsule -->
     <div id="appCapsule">
         {{ $slot }}
-        
+
     </div>
     <!-- * App Capsule -->
 
 
     <!-- App Bottom Menu -->
-    <x-layouts.button-nav/>
+    <x-layouts.button-nav />
     <!-- * App Bottom Menu -->
 
-
-    <x-layouts.script/>
+    <x-layouts.script />
 
 </body>
 
