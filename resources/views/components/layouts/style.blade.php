@@ -2,3 +2,5 @@
 <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('assets/img/icon/192x192.png') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
 <link rel="manifest" href="{{ asset('__manifest.json') }}">
+
+{{ $styles ?? null }}

@@ -3,8 +3,9 @@
 
 <head>
     <x-layouts.meta-tag></x-layouts.meta-tag>
-    <title>E-Presensi Geolocation | Dashboard</title>
+    <title>{{ env('APP_NAME') ?? 'E-Presensi Geolocation' }} | {{ $title ?? null }}</title>
     <x-layouts.style />
+    {{ $styles ?? null }}
 </head>
 
 <body style="background-color:#e9ecef;">
@@ -13,7 +14,9 @@
     <x-layouts.loader />
     <!-- * loader -->
 
-
+    <!-- App Header -->
+    {{ $header ?? null }}
+    <!-- * App Header -->
 
     <!-- App Capsule -->
     <div id="appCapsule">
@@ -29,6 +32,7 @@
 
     <x-layouts.script />
 
+    {{ $scripts ?? null }}
 </body>
 
 </html>

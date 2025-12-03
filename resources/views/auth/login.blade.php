@@ -23,7 +23,8 @@
             top: 50%;
             transform: translateY(-50%);
             font-size: 24px;
-            color: #A1A1A2; /* Sesuaikan warna dengan template */
+            color: #A1A1A2;
+            /* Sesuaikan warna dengan template */
             cursor: pointer;
             z-index: 10;
         }
@@ -46,32 +47,39 @@
                 <h4>Silahkan Login</h4>
             </div>
             <div class="section mt-1 mb-5">
-                
+
+                @if (session('success'))
+                    <div class="alert alert-success my-2">
+                        {{ session('success') }}
+                    </div>
+                @endif
+
                 @php
                     $messagewarning = Session::get('warning');
                 @endphp
-                
+
                 @if (Session::get('warning'))
-                <div class="alert alert-outline-danger mb-1">
-                    {{ $messagewarning }}
-                </div>
+                    <div class="alert alert-outline-danger mb-1">
+                        {{ $messagewarning }}
+                    </div>
                 @endif
-                
+
                 @if ($errors->any())
-                <div class="alert alert-outline-danger mb-1">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
+                    <div class="alert alert-outline-danger mb-1">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
                 @endif
                 <form action="{{ route('process-login') }}" method="POST">
-                    @csrf 
-                    
+                    @csrf
+
                     <div class="form-group boxed">
                         <div class="input-wrapper">
-                            <input type="text" name="nik" class="form-control" id="nik" placeholder="NIK" autocomplete="off">
+                            <input type="text" name="nik" class="form-control" id="nik" placeholder="NIK"
+                                autocomplete="off">
                             <i class="clear-input">
                                 <ion-icon name="close-circle"></ion-icon>
                             </i>
@@ -80,8 +88,9 @@
 
                     <div class="form-group boxed">
                         <div class="input-wrapper">
-                            <input type="password" name="password" class="form-control" id="password" placeholder="Password">
-                            
+                            <input type="password" name="password" class="form-control" id="password"
+                                placeholder="Password">
+
                             <i class="toggle-password" id="show_password">
                                 <ion-icon name="eye-off-outline"></ion-icon>
                             </i>
@@ -127,8 +136,8 @@
 
             // Script Tambahan: Menghilangkan notifikasi otomatis setelah 3 detik (Opsional)
             window.setTimeout(function() {
-                $(".alert").fadeTo(500, 0).slideUp(500, function(){
-                    $(this).remove(); 
+                $(".alert").fadeTo(500, 0).slideUp(500, function() {
+                    $(this).remove();
                 });
             }, 3000);
         });

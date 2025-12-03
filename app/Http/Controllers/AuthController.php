@@ -19,17 +19,24 @@ class AuthController extends Controller
             'password' => $request->password,
         ];
 
-        // 3. Proses Login dengan Guard 'employee'
+        // Proses Login dengan Guard 'employee'
         // PENTING: Kita pakai guard('employee') karena ini untuk karyawan, bukan user biasa
         if (Auth::guard('employee')->attempt($credentials)) {
 
             // Jika Berhasil: Redirect ke Dashboard
-            return redirect()->route('dashboard.index');
+            return redirect()->route('employee.dashboard.index');
         } else {
 
             // Jika Gagal: Kembali ke halaman login dengan pesan error
             return redirect()->back()->with(['warning' => 'NIK / Password Salah']);
         }
-        dd($request->all());
+    }
+
+    public function processLogout()
+    {
+        if (Auth::guard('employee')->check()) {
+            Auth::guard('employee')->logout();
+            return redirect()->route('employee.login')->with('success', 'Logout Success');
+        }
     }
 }

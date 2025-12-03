@@ -1,4 +1,5 @@
 <x-layouts.app>
+    <x-slot:title>Dashboard</x-slot:title>
     <div class="section" id="user-section">
         <div id="user-detail">
             <div class="avatar">
